@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mongo_dart/mongo_dart.dart';
+import 'package:notaloan/dBHelper/mongodb.dart';
 
-void main() {
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await MongoDatabase.connect();
   runApp(const MyApp());
 }
 
@@ -29,7 +32,7 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 144, 41, 41)),
+        colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 172, 72, 95)),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'NotALoan'),
@@ -56,16 +59,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  double balance = 0.0; // add balance 
 
-  void _incrementCounter() {
+  void sendMoney() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      _counter++;
+      balance--;
     });
   }
 
@@ -106,18 +109,20 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            Text(
+              'Balance:',
+              style: Theme.of(context).textTheme.headlineLarge,
+              
             ),
             Text(
-              '$_counter',
+              '\$$balance', // Display balance value
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: sendMoney, 
         tooltip: 'Send Money',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
