@@ -19,14 +19,14 @@ class _HomePageState extends State<HomePage> {
                     const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
                 child: GNav(
                   backgroundColor: Colors.black26,
-                  gap: 8,
+                  gap: 1,
                   onTabChange: (index){
                     print(index);
                   },
                   color: Colors.white,
                   activeColor: Colors.white,
                   tabBackgroundColor: Colors.grey,
-                  padding: EdgeInsets.all(16),
+                  padding: EdgeInsets.all(10),
                   tabs: const [
                     GButton(
                       icon: Icons.home,
